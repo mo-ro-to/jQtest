@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!-- 2014 ACK inc. -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>jQuery memo</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<!-- 直書きStyle -->
+<style type="text/css">
+
+body {margin: 0 auto;padding: 0 20px;font-size: 13px;width: 900px;}
+a{color:#3388c9;text-decoration: none;}
+a:hover{text-decoration: underline;}
+ul,dl,dt,dd{margin: 0;padding: 0;}
+li {list-style: none;}
+p{margin: 0;padding: 0;}
+section {float: left;margin-right: 20px;margin-bottom: 20px;}
+h1{font-size: 24px;margin-top: 0;}
+h2{font-size: 16px;padding: 5px 10px;border-bottom: 1px solid #ccc;border-left: 4px solid #00a3ff;}
+#accordion {}
+#imageChange {width: 500px;}
+#imageChange #stage {height: 310px;}
+#imageChange ul li {float: left;margin-right: 2px;cursor: pointer;}
+#acMenu dt{
+	display:block;
+	width:200px;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+	border:#666 1px solid;
+	cursor:pointer;
+	}
+#acMenu dd{
+	background:#f2f2f2;
+	width:200px;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+	border:#666 1px solid;
+	display:none;
+	}
+#imgover ul li {
+	float: left;
+	margin-right: 1px;
+	height: 100px;
+	background: url(http://dummyimage.com/180x100/FFCC00/fff&text=ON);
+}
+</style>
+<!-- 直書きJavascript -->
+<script type="text/javascript">
+
+$(function(){
+	//accordion
+	var speed = 400;
+	$("#acMenu dt").on("click", function() {
+		if($(this).next().css('display')=='none'){
+			$(this).siblings('dd').stop(true,true).slideUp(speed);
+		}
+		$(this).next().slideToggle(speed);
+	});
+
+	//imageChange
+	$("#imageChange #stage img").hide();
+	$("#imageChange #stage img:first-child").show();
+	$("#imageChange ul li").click(function(event) {
+		var num = $("#imageChange ul li").index(this);
+		console.log("画像セレクト："+num);
+		$("#imageChange #stage img").hide();
+		$("#imageChange #stage img").eq(num).fadeIn();
+	}).hover(function() {
+		$(this).find('img').attr('src', $(this).find('img').attr('src').replace("666","ffcc00"));
+	}, function() {
+		var img = $(this).find('img');
+		img.attr('src', img.attr('src').replace("ffcc00","666"));
+	});
+
+	//imgover
+	$("#imgover ul li img").hover(function() {
+		$(this).stop().animate({'opacity' : '0'}, speed);
+	}, function() {
+		$(this).stop().animate({'opacity' : '1'}, speed/2);
+	});
+});
+
+</script>
+</head>
+<body>
+<!--  始まり  -->
+<section id="accordion">
+	<h2>アコーディオン</h2>
+	<div id="main">
+		<dl id="acMenu">
+			<dt>アコーディオンメニュー1</dt>
+			<dd>アコーディオンメニューが開く。</dd>
+			<dt>アコーディオンメニュー2</dt>
+			<dd>アコーディオンメニューが開く。</dd>
+			<dt>アコーディオンメニュー3</dt>
+			<dd>アコーディオンメニューが開く。</dd>
+			<dt>アコーディオンメニュー4</dt>
+			<dd>アコーディオンメニューが開く。</dd>
+		</dl>
+	</div>
+</section>
+<section id="imageChange">
+	<h2>imageChange</h2>
+	<div id="stage">
+		<img src="http://dummyimage.com/500x300/666/fff&text=image1">
+		<img src="http://dummyimage.com/500x300/666/fff&text=image2">
+		<img src="http://dummyimage.com/500x300/666/fff&text=image3">
+		<img src="http://dummyimage.com/500x300/666/fff&text=image4">
+		<img src="http://dummyimage.com/500x300/666/fff&text=image5">
+		<img src="http://dummyimage.com/500x300/666/fff&text=image6">
+		<img src="http://dummyimage.com/500x300/666/fff&text=image7">
+		<img src="http://dummyimage.com/500x300/666/fff&text=image8">
+		<img src="http://dummyimage.com/500x300/666/fff&text=image9">
+		<img src="http://dummyimage.com/500x300/666/fff&text=image10">
+	</div>
+	<ul>
+		<li><img src="http://dummyimage.com/48x48/666/fff&text=1"></li>
+		<li><img src="http://dummyimage.com/48x48/666/fff&text=2"></li>
+		<li><img src="http://dummyimage.com/48x48/666/fff&text=3"></li>
+		<li><img src="http://dummyimage.com/48x48/666/fff&text=4"></li>
+		<li><img src="http://dummyimage.com/48x48/666/fff&text=5"></li>
+		<li><img src="http://dummyimage.com/48x48/666/fff&text=6"></li>
+		<li><img src="http://dummyimage.com/48x48/666/fff&text=7"></li>
+		<li><img src="http://dummyimage.com/48x48/666/fff&text=8"></li>
+		<li><img src="http://dummyimage.com/48x48/666/fff&text=9"></li>
+		<li><img src="http://dummyimage.com/48x48/666/fff&text=10"></li>
+	</ul>
+</section>
+<section id="imgover">
+	<h2>ロールオーバーフェード</h2>
+	<ul>
+		<li><a href="#"><img src="http://dummyimage.com/180x100/666/fff&text=OFF"></a></li>
+		<li><a href="#"><img src="http://dummyimage.com/180x100/666/fff&text=OFF"></a></li>
+		<li><a href="#"><img src="http://dummyimage.com/180x100/666/fff&text=OFF"></a></li>
+		<li><a href="#"><img src="http://dummyimage.com/180x100/666/fff&text=OFF"></a></li>
+	</ul>
+</section>
+</body>
+</html>
